@@ -1,0 +1,2 @@
+D:\bigfile\Microsoft Visual Studio\visualstudiocodes\counter\Debug\counter.exe
+D:\bigfile\Microsoft Visual Studio\visualstudiocodes\counter\Debug\counter.pdb
