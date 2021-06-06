@@ -47,6 +47,13 @@ private:
 	// 将字符串去除空格
 	std::string deleteSpace(std::string&);
 
+	// 调用模式 1
+	void runMode1();
+	// 调用模式 2
+	void runMode2();
+	// 调用模式切换
+	void runMode();
+
 private:
 	std::string  expression;
 };

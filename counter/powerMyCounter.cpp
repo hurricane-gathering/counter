@@ -9,10 +9,7 @@
 #include "myCounter.h"
 
 int main() {
-	LPWSTR lp = TEXT("小小米计算器");
-	SetConsoleTitle(lp);
-	system("color 30");
-	myCounter* count = new myCounter;
+	myCounter* count = new myCounter();
 	count->mode();
 	delete count;
 

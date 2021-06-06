@@ -342,17 +342,31 @@ void myCounter::print() {
 
 // 模式切换
 void  myCounter::mode() {
+	LPWSTR lp = TEXT("小小米计算器");
+	SetConsoleTitle(lp);
+	system("color 30");
 	std::cout << "模式1 历史记录模式 \t 模式2 一次性运算模式" << '\n';
-	std::cout << " 1 or 2 ：";
+	std::cout << "1 or 2 ：";
 	auto choice = 1;
-	std::cin >> choice;
+	while (!(std::cin >> choice)) {
+		std::cout << "输入类型都错了" << std::endl;
+		std::cin.clear();  // 解锁
+		std::cin.ignore(999, '\n'); // 清除缓冲区(直到空格，含空格)内容
+		// 下面这一句在我的 vs 里好像不起作用，会进入死循环，让我烦了好久
+		// std::cin.sync();   // 清空缓冲区内容
+		std::cout << "请重输：";
+	}
+	if (choice != 1 && choice != 2) {
+		std::cerr << "输入有误" << std::endl;
+		runMode();
+	}
 	system("cls");
 	switch (choice)
 	{
 	case 1:
-		mode1(); break;
+		runMode1();
 	case 2:
-		mode2(); break;
+		runMode2();
 	default:
 		break;
 	}
@@ -385,7 +399,9 @@ void myCounter::mode1() {
 		// system("cls");
 		if (temp == -1) {
 			system("cls");
-			return mode2();		// 切换到模式 2
+			// 切换模式
+			runMode();
+			// return mode();		// 进入模式切换
 		}
 		else {
 			done = temp;
@@ -417,7 +433,10 @@ void myCounter::mode2() {
 		std::cout << '\n';
 		if (temp == -1) {
 			system("cls");
-			return mode1();		// 切换到模式 1
+			// 切换模式
+			runMode();
+			// 或者用下面这种方法
+			// return mode();		// 进入模式切换
 		}
 		else {
 			done = temp;
@@ -426,4 +445,24 @@ void myCounter::mode2() {
 		system("cls");
 		done = temp;
 	}
+}
+
+// 调用模式切换
+void myCounter::runMode() {
+	myCounter* m = new myCounter();
+	m->mode();
+	delete m;
+}
+
+// 调用模式 1
+void myCounter::runMode1() {
+	myCounter* m = new myCounter();
+	m->mode1();
+	delete m;
+}
+// 调用模式 2
+void myCounter::runMode2() {
+	myCounter* m = new myCounter();
+	m->mode2();
+	delete m;
 }
